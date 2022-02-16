@@ -1,7 +1,17 @@
+from contextvars import Token
 import discord
 from discord.ext import commands
 
-client = commands.Bot(command_prefix= "pa ")
+import json
+
+with open("./config.json") as conf:
+    configData = json.load(conf)
+
+token = configData["Token"]
+prefix = configData["Prefix"]
+
+client = commands.Bot(command_prefix = prefix)
+
 
 @client.event
 async def on_ready():
@@ -11,4 +21,4 @@ async def on_ready():
 async def hello(ctx):  
     await ctx.send("Hello, I am Proto Alpha")
 
-client.run('OTQzNTAwNDk1NDY3NzA4NDM3.Ygz9Tw.yjtEeiDMO3gBHD2gV0hpHhC8A74')
+client.run(token)
